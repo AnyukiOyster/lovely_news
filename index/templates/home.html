@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Только милые новости</title>
+</head>
+<body>
+{% for p in news_list %}
+<p>{{ p.news_header }}</p>
+<br>
+{% endfor %}
+</body>
+</html>
