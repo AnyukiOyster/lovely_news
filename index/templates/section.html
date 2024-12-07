@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ section }}</title>
+</head>
+<body>
+<h1>{{ section }}</h1>
+<hr>
+{% for n in news %}
+<h3><a href="/news/{{ n.id }}">{{ n.news_header }}</a></h3>
+<br>
+{% endfor %}
+</body>
+</html>

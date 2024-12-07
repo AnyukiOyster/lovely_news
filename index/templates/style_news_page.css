@@ -1,0 +1,43 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    font-variant: normal;
+    line-height: 1.5;
+}
+section{
+    background-image: url(./back_manul.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: relative;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+.wrapper{
+    background-color: #F0F8FF;
+    width: 900px;
+    margin: 0 auto;
+    border-radius: 10px;
+    padding: 30px 50px 20px;
+}
+.header{
+    text-align: center
+}
+h1{
+    font-weight: 800;
+    font-size: x-large;
+}
+#image{
+    max-width: 700px;
+}
+.subtext{
+    font-style: italic;
+    color: gray;
+}
+.text {
+    text-align: justify;
+    text-indent: 5%;
+}

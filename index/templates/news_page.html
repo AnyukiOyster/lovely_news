@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style_news_page.css">
+    <title>{{ news }}</title>
+</head>
+<body>
+<section>
+        <div class="wrapper">
+            <div class="header">
+                <h1>{{ news.news_header }}</h1>
+                <br>
+                <p class="subtext">{{ news.news_image_subtext }}</p>
+            </div>
+            <br>
+            <p class="text">{{ news.news_text }}</p>
+          <a href="/section/{{ news.news_category.id }}" class="section_link">Больше новостей по данной теме</a>
+        </div>
+    </section>
+</body>
+</html>
