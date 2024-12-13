@@ -9,10 +9,25 @@
 <main>
 <div class="container">
   <header class="border-bottom lh-1 py-3">
-      <div class="col-4 text-center">
-        <a href="/" class="blog-header-logo text-body-emphasis text-dark text-decoration-none">Сайт с добрыми новостями</a>
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none">
+            Сайт с добрыми новостями
+        </a>
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        </ul>
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="/search" method="post">
+            {% csrf_token %}
+          <input name="search" type="search" class="form-control form-control-dark" placeholder="Найти..." aria-label="Найти">
+        </form>
+
+        <div class="text-end">
+          <button type="button" class="btn btn-outline-light text-dark me-2">Войти</button>
+          <button type="button" class="btn btn-warning"><a href="/register" class="text-dark text-decoration-none">Зарегистрироваться</a></button>
+        </div>
       </div>
-  </header>
+    </div>
+</header>
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-left">

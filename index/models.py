@@ -36,4 +36,3 @@ def random_news():
         else:
             i = 0
             return random_num1, random_num2
-
