@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>{{ news }}</title>
+    <title>Избранное</title>
 </head>
 <main>
 <div class="container">
@@ -33,7 +33,7 @@
           {% endif %}
       </div>
     </div>
-</header>
+  </header>
 
   <div class="nav-scroller py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-left">
@@ -43,28 +43,34 @@
     </nav>
   </div>
 </div>
-
 <main class="container">
-      <article class="blog-post">
-        <h2 class="display-5 link-body-emphasis mb-5 text-center"><strong>{{ news.news_header }}</strong></h2>
-          <p class="blog-post-meta ">{{ news.added_date }}</p>
-          {% if user.is_authenticated %}
-          <form action="/to-fav/{{ news.id }}" method="post">
-              {% csrf_token $}
-              <button type="submit" class="btn btn-light">❤️</button>
-          </form>
-          {% endif %}
-        <hr>
-          <div class="container text-center">
-            <img src="{{ news.news_image.url }}" alt="{{ news.news_header }}" width="800">
-            <p class="text-secondary"><em>{{ news.news_image_subtext }}</em></p>
+    <br>
+    <br>
+<h4>Избранные новости</h4>
+    <br>
+    <br>
+    <div class="row mb-2">
+        {% for p in favs %}
+        <div class="col-md-6">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+            <div class="col p-4 d-flex flex-column position-static">
+              <div class="mb-1 text-secondary">{{ p.added_date }}</div>
+                <form action="/not-fav/{{ news.id }}" method="post">
+                    {% csrf_token $}
+                    <button type="submit" class="btn btn-light">💔</button>
+                </form>
+                <hr>
+              <h5 class="card-text mb-auto">{{ p.news_header }}</h5>
+              <a href="/news/{{ p.id }}" class="icon-link gap-1 icon-link-hover stretched-link">
+                Читать полный текст статьи
+              </a>
+            </div>
+            <div class="col-auto d-none d-lg-block">
+              <img src="{{ p.news_mini_image.url }}" alt="{{ p.news_header }}" width="200" height="250">
+            </div>
           </div>
-        <div>
-            {{ news.news_text|linebreaks }}
-         </div>
-          <br>
-          <a href="/section/{{ news.news_category.id }}" class="section_link text-decoration-none">Больше новостей по данной теме</a>
-          <br><br><br>
-          </article>
-  </main>
+        </div>
+          {% endfor %}
+    </div>
+ </main>
 </main>

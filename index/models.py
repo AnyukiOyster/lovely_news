@@ -22,6 +22,9 @@ class News(models.Model):
     def __str__(self):
         return str(self.news_header)
 
+class Favorites(models.Model):
+    user_id = models.IntegerField()
+    favorite_news = models.ForeignKey(News, on_delete=models.CASCADE)
 
 # Генерация случайных новостей для главной
 def random_news():

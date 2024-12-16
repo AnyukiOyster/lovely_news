@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import NewsCategory, News, random_news
+from .models import NewsCategory, News, random_news,Favorites
 from .forms import RegForm
 from django.views import View
 from django.contrib.auth import login, logout
@@ -87,3 +87,27 @@ def search(request):
             return redirect(f'/news/{searched_news.id}')
         else:
             return redirect('/')
+
+#Добавление новости в избранное
+def to_fav(request, pk):
+    if request.method == 'POST':
+        favored_article = News.objects.get(id=pk)
+        Favorites.objects.create(user_id=request.user.id, favorite_news=favored_article).save()
+        return redirect(f'/news/{pk}')
+
+#Удаление новости из избранного
+def not_fav(request, pk):
+    article_unfavored = News.objects.get(id=pk)
+    Favorites.objects.filter(favorite_news=article_unfavored).delete()
+    return redirect('/favorite')
+
+#Страница с новостями в избранном
+def fav_page(request):
+    favs = Favorites.objects.filter(user_id=request.user.id)
+    categories = NewsCategory.objects.all()
+    context = {'favs': favs, 'categories': categories}
+    return render(request, 'favorite.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
