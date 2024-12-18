@@ -91,8 +91,13 @@ def search(request):
 def to_fav(request, pk):
     if request.method == 'POST':
         favored_article = News.objects.get(id=pk)
-        Favorites.objects.create(user_id=request.user.id, favorite_news=favored_article).save()
-        return redirect(f'/news/{pk}')
+        favs = Favorites.objects.filter(user_id=request.user.id)
+        favs_ids = [i.favorite_news.id for i in favs]
+        if favored_article.id in favs_ids:
+            return redirect(f'/news/{pk}')
+        else:
+            Favorites.objects.create(user_id=request.user.id, favorite_news=favored_article).save()
+            return redirect(f'/news/{pk}')
 
 #Удаление новости из избранного
 def not_fav(request, pk):
