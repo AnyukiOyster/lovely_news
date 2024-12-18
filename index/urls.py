@@ -8,7 +8,7 @@ urlpatterns = [
     path('register', views.Register.as_view()),
     path('logout', views.logout_view),
     path('search', views.search),
-    path('to-fav/<int:pk>'), views.to_fav,
-    path('not-fav/<int:pk>'), views.not_fav,
+    path('to-fav/<int:pk>', views.to_fav, name='to_fav'),
+    path('not-fav/<int:pk>', views.not_fav),
     path('favorite', views.fav_page)
 ]

@@ -50,7 +50,7 @@
           <p class="blog-post-meta ">{{ news.added_date }}</p>
           {% if user.is_authenticated %}
           <form action="/to-fav/{{ news.id }}" method="post">
-              {% csrf_token $}
+              {% csrf_token %}
               <button type="submit" class="btn btn-light">❤️</button>
           </form>
           {% endif %}

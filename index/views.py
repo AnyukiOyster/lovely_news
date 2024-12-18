@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect
-from .models import NewsCategory, News, random_news,Favorites
+from .models import NewsCategory, News, random_news, Favorites
 from .forms import RegForm
 from django.views import View
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
-
 
 #Главная страница
 def home_page(request):
@@ -97,13 +96,21 @@ def to_fav(request, pk):
 
 #Удаление новости из избранного
 def not_fav(request, pk):
-    article_unfavored = News.objects.get(id=pk)
-    Favorites.objects.filter(favorite_news=article_unfavored).delete()
-    return redirect('/favorite')
+    if request.method == 'POST':
+        article_unfavored = News.objects.get(id=pk)
+        Favorites.objects.filter(favorite_news=article_unfavored).delete()
+        return redirect('/favorite')
 
 #Страница с новостями в избранном
 def fav_page(request):
     favs = Favorites.objects.filter(user_id=request.user.id)
+    # article_ids = [i.favorite_news.id for i in favs]
+    # article_title = [i.favorite_news.news_header for i in favs]
+    # article_text = [i.favorite_news.news_text for i in favs]
+    # article_subtext = [i.favorite_news.news_image_subtext for i in favs]
+    # article_mini_img = [i.favorite_news.news_mini_image for i in favs]
+    # article_img = [i.favorite_news.news_image for i in favs]
+    # article_date = [i.favorite_news.added_date for i in favs]
     categories = NewsCategory.objects.all()
     context = {'favs': favs, 'categories': categories}
     return render(request, 'favorite.html', context)

@@ -50,25 +50,25 @@
     <br>
     <br>
     <div class="row mb-2">
-        {% for p in favs %}
+        {% for f in favs %}
         <div class="col-md-6">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
             <div class="col p-4 d-flex flex-column position-static">
-              <div class="mb-1 text-secondary">{{ p.added_date }}</div>
-                <form action="/not-fav/{{ news.id }}" method="post">
-                    {% csrf_token $}
-                    <button type="submit" class="btn btn-light">💔</button>
-                </form>
+              <div class="mb-1 text-secondary">{{ f.favorite_news.added_date }}</div>
                 <hr>
-              <h5 class="card-text mb-auto">{{ p.news_header }}</h5>
-              <a href="/news/{{ p.id }}" class="icon-link gap-1 icon-link-hover stretched-link">
+              <h5 class="card-text mb-auto">{{ f.favorite_news.news_header }}</h5>
+              <a href="/news/{{ f.favorite_news.id }}" class="icon-link gap-1 icon-link-hover stretched-link">
                 Читать полный текст статьи
               </a>
             </div>
             <div class="col-auto d-none d-lg-block">
-              <img src="{{ p.news_mini_image.url }}" alt="{{ p.news_header }}" width="200" height="250">
+              <img src="{{ f.favorite_news.news_mini_image.url }}" alt="{{ f.favorite_news.news_header }}" width="200" height="250">
             </div>
           </div>
+          <form action="/not-fav/{{ f.favorite_news.id }}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-light">💔</button>
+          </form><br>
         </div>
           {% endfor %}
     </div>
