@@ -49,10 +49,14 @@
         <h2 class="display-5 link-body-emphasis mb-5 text-center"><strong>{{ news.news_header }}</strong></h2>
           <p class="blog-post-meta ">{{ news.added_date }}</p>
           {% if user.is_authenticated %}
-          <form action="/to-fav/{{ news.id }}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-light">❤️</button>
-          </form>
+                <form action="/to-fav/{{ news.id }}" method="post">
+                {% csrf_token %}
+                    {% if news.id in favs_ids %}
+                        <button type="submit" class="btn btn-light">❤️</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-light">🤍</button>
+                    {% endif %}
+                </form>
           {% endif %}
         <hr>
           <div class="container text-center">

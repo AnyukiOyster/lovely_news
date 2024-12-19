@@ -29,8 +29,10 @@ def news_page(request, pk):
     #Вывод новости
     news = News.objects.get(id=pk)
     categories = NewsCategory.objects.all()
+    favs = Favorites.objects.filter(user_id=request.user.id)
+    favs_ids = [i.favorite_news.id for i in favs]
     #Передаём на фронтэнд
-    context = {'news': news, 'categories': categories}
+    context = {'news': news, 'categories': categories, 'favs_ids': favs_ids}
 
     return render(request, 'news_page.html', context)
 
@@ -94,12 +96,14 @@ def to_fav(request, pk):
         favs = Favorites.objects.filter(user_id=request.user.id)
         favs_ids = [i.favorite_news.id for i in favs]
         if favored_article.id in favs_ids:
+            Favorites.objects.filter(favorite_news=favored_article).delete()
             return redirect(f'/news/{pk}')
         else:
             Favorites.objects.create(user_id=request.user.id, favorite_news=favored_article).save()
             return redirect(f'/news/{pk}')
 
-#Удаление новости из избранного
+
+#Удаление новости из избранного на странице избранного
 def not_fav(request, pk):
     if request.method == 'POST':
         article_unfavored = News.objects.get(id=pk)
@@ -109,13 +113,6 @@ def not_fav(request, pk):
 #Страница с новостями в избранном
 def fav_page(request):
     favs = Favorites.objects.filter(user_id=request.user.id)
-    # article_ids = [i.favorite_news.id for i in favs]
-    # article_title = [i.favorite_news.news_header for i in favs]
-    # article_text = [i.favorite_news.news_text for i in favs]
-    # article_subtext = [i.favorite_news.news_image_subtext for i in favs]
-    # article_mini_img = [i.favorite_news.news_mini_image for i in favs]
-    # article_img = [i.favorite_news.news_image for i in favs]
-    # article_date = [i.favorite_news.added_date for i in favs]
     categories = NewsCategory.objects.all()
     context = {'favs': favs, 'categories': categories}
     return render(request, 'favorite.html', context)
