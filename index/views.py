@@ -60,7 +60,7 @@ class Register(View):
 
         #Проверка корректности данных
         if form.is_valid():
-            username = form.clean_username()
+            username = form.clean_username('username')
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password2')
 
