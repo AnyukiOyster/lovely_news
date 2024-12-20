@@ -113,8 +113,10 @@ def not_fav(request, pk):
 #Страница с новостями в избранном
 def fav_page(request):
     favs = Favorites.objects.filter(user_id=request.user.id)
+    favs_ids = [i.favorite_news.id for i in favs]
+    amount = len(favs_ids)
     categories = NewsCategory.objects.all()
-    context = {'favs': favs, 'categories': categories}
+    context = {'favs': favs, 'categories': categories, 'amount':amount}
     return render(request, 'favorite.html', context)
 
 def logout_view(request):

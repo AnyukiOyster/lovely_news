@@ -49,6 +49,7 @@
 <h4>Избранные новости</h4>
     <br>
     <br>
+    {% if amount > 0 %}
     <div class="row mb-2">
         {% for f in favs %}
         <div class="col-md-6">
@@ -72,5 +73,10 @@
         </div>
           {% endfor %}
     </div>
+    {% else %}
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <p class="text-primary">Сейчас в избранном нет новостей...</p>
+    </div>
+    {% endif %}
  </main>
 </main>
